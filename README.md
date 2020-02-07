@@ -25,7 +25,7 @@ of one's life without the hassle of a physical book and/or keeping
 it organized. Furthermore, this project will be a great learning
 experience.
 
-##User Stories
+## User Stories
 
 - As a user, I want to be able to create a new journal entry and add it to 
 my collection of entries

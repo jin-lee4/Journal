@@ -8,7 +8,6 @@
 - Create journal entries using text documents
 - The user can also add photos to an entry
 - Keep an archive of past entries
-- Journal entries can be categorized in various ways
 - Entry archives can be found in chronological order
 - User can tag entries as another way to categorize
 
@@ -25,3 +24,13 @@ this! I feel this application would be very useful in keeping a record
 of one's life without the hassle of a physical book and/or keeping 
 it organized. Furthermore, this project will be a great learning
 experience.
+
+##User Stories
+
+- As a user, I want to be able to create a new journal entry and add it to 
+my collection of entries
+- As a user, I want to be able to add text to an entry
+- As a user, I want to be able to view all of my journal entries organized
+in chronological order
+- As a user, I want to be able to select a journal entry from my collection
+and view that entry

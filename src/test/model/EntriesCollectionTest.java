@@ -59,7 +59,7 @@ public class EntriesCollectionTest {
     @Test
     void testViewEntry() {
         collection.addEntry(testFirstEntry);
-        testFirstEntry.addText("Today is my birthday, hooray!");
+        testFirstEntry.setText("Today is my birthday, hooray!");
         assertEquals("2020/02/01 09:18 AM" + "\n" + "Today is my birthday, hooray!",
                 collection.viewEntry(firstDate));
     }

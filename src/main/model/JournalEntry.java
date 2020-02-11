@@ -16,12 +16,13 @@ public class JournalEntry {
     //EFFECTS: creates an empty entry
     public JournalEntry(LocalDateTime time) {
         this.time = time;
+        this.text = "";
         this.images = new ArrayList<>();
     }
 
     //MODIFIES: this
-    //EFFECTS: adds text to entry
-    public void addText(String text) {
+    //EFFECTS: adds or replaces text to entry
+    public void setText(String text) {
         this.text = text;
     }
 
@@ -54,7 +55,7 @@ public class JournalEntry {
     //EFFECTS: returns text of entry
     //         if entry is empty, return "Nothing yet. What's on your mind?"
     public String getText() {
-        if (this.text == null) {
+        if (this.text.equals("")) {
             return "Nothing yet. What's on your mind?";
         }
         return this.text;

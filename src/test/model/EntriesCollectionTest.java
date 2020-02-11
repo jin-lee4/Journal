@@ -65,6 +65,15 @@ public class EntriesCollectionTest {
     }
 
     @Test
+    void testViewEntryBiggerList() {
+        collection.addEntry(testFirstEntry);
+        collection.addEntry(testThirdEntry);
+        testFirstEntry.setText("Today is my birthday, hooray!");
+        testThirdEntry.setText("I broke my leg today.");
+        assertEquals("2020/02/18 12:48 PM" + "\n" + "I broke my leg today.", collection.viewEntry(thirdDate));
+    }
+
+    @Test
     void testViewEntryDNE() {
         assertEquals("Entry cannot be found.",
                 collection.viewEntry(LocalDateTime.of(2020, 2, 3, 12, 4)));

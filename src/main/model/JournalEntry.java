@@ -16,6 +16,7 @@ public class JournalEntry {
     //EFFECTS: creates an empty entry
     public JournalEntry(LocalDateTime time) {
         this.time = time;
+        this.images = new ArrayList<>();
     }
 
     //MODIFIES: this
@@ -34,13 +35,13 @@ public class JournalEntry {
     //MODIFIES: this
     //EFFECTS: adds an image to the entry
     public void addImage(File img) {
-        images.add(img);
+        this.images.add(img);
     }
 
     //MODIFIES: this
     //EFFECTS: removes an image from the entry
     public void deleteImage(File img) {
-        images.remove(img);
+        this.images.remove(img);
     }
 
     //MODIFIES: time

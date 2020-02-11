@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,12 +13,14 @@ class JournalEntryTest {
     private JournalEntry testEntry;
     private LocalDateTime date;
     private File image;
+    ArrayList<File> images;
 
     @BeforeEach
     void RunBefore() {
         date = LocalDateTime.of(2020,2,9,11,54);
         testEntry = new JournalEntry(date);
         image = new File("data/tobs.jpg");
+        images = new ArrayList<>();
     }
 
     @Test
@@ -59,19 +62,19 @@ class JournalEntryTest {
     @Test
     void testAddImage() {
         testEntry.addImage(image);
-        assertEquals(image, testEntry.getImage());
+        assertEquals(image, images.get(0));
     }
 
     @Test
     void testRemoveImage() {
         testEntry.addImage(image);
         testEntry.deleteImage(image);
-        assertNull(testEntry.getImage());
+        assertNull(images.get(0));
     }
 
     @Test
     void testToString() {
-        assertEquals("2020-02-9 9:11:54", testEntry.toString(date));
+        assertEquals("2020-02-9 9:11:54", testEntry.dateToString(date));
     }
 
     @Test

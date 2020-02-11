@@ -35,7 +35,7 @@ public class EntriesCollectionTest {
     void testAddOneEntry() {
         collection.addEntry(testFirstEntry);
         assertEquals(1, collection.getNumEntries());
-        assertEquals("2020/02/1 9:18AM", collection.listAllEntries());
+        assertEquals("2020/02/01 09:18 AM" + "\n", collection.listAllEntries());
     }
 
     @Test
@@ -43,7 +43,7 @@ public class EntriesCollectionTest {
         collection.addEntry(testFirstEntry);
         collection.addEntry(testSecondEntry);
         assertEquals(2, collection.getNumEntries());
-        assertEquals("2020/02/18 6:07PM" + "\n" + "2020/02/1 9:18AM", collection.listAllEntries());
+        assertEquals("2020/02/18 18:07 PM" + "\n" + "2020/02/01 09:18 AM" + "\n", collection.listAllEntries());
     }
 
     @Test
@@ -53,14 +53,14 @@ public class EntriesCollectionTest {
         assertEquals(2, collection.getNumEntries());
         collection.deleteEntry(testSecondEntry);
         assertEquals(1, collection.getNumEntries());
-        assertEquals("2020/02/1 9:18AM", collection.listAllEntries());
+        assertEquals("2020/02/01 09:18 AM" + "\n", collection.listAllEntries());
     }
 
     @Test
     void testViewEntry() {
         collection.addEntry(testFirstEntry);
         testFirstEntry.addText("Today is my birthday, hooray!");
-        assertEquals("2020/02/1 9:18AM" + "\n" + "Today is my birthday, hooray!",
+        assertEquals("2020/02/01 09:18 AM" + "\n" + "Today is my birthday, hooray!",
                 collection.viewEntry(firstDate));
     }
 
@@ -73,21 +73,21 @@ public class EntriesCollectionTest {
     @Test
     void testListSingleEntry() {
         collection.addEntry(testSecondEntry);
-        assertEquals("2020/02/18 6:07PM", collection.listAllEntries());
+        assertEquals("2020/02/18 18:07 PM" + "\n", collection.listAllEntries());
     }
 
     @Test
     void testListAllEntries() {
         collection.addEntry(testFirstEntry);
         collection.addEntry(testSecondEntry);
-        assertEquals("2020/02/18 6:07PM" + "\n" + "2020/02/1 9:18AM", collection.listAllEntries());
+        assertEquals("2020/02/18 18:07 PM" + "\n" + "2020/02/01 09:18 AM" + "\n", collection.listAllEntries());
     }
 
     @Test
     void testListAllEntriesSameDay() {
         collection.addEntry(testSecondEntry);
         collection.addEntry(testThirdEntry);
-        assertEquals("2020/02/18 6:07PM" + "\n" + "2020/02/18 12:48PM", collection.listAllEntries());
+        assertEquals("2020/02/18 18:07 PM" + "\n" + "2020/02/18 12:48 PM" + "\n", collection.listAllEntries());
     }
 
 }

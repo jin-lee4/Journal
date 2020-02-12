@@ -26,13 +26,6 @@ public class JournalEntry {
         this.text = text;
     }
 
-    //TODO: implement this method!
-    //MODIFIES: this
-    //EFFECTS: add or edit text of an existing entry
-    public void editText(String text) {
-
-    }
-
     //MODIFIES: this
     //EFFECTS: adds an image to the entry
     public void addImage(File img) {

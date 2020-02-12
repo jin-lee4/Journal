@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class EntriesCollectionTest {
@@ -20,7 +21,7 @@ public class EntriesCollectionTest {
         collection = new EntriesCollection();
         firstDate = LocalDateTime.of(2020, 2, 1, 9, 18);
         secondDate = LocalDateTime.of(2020, 2, 18, 18, 7);
-        thirdDate = LocalDateTime.of(2020, 2, 18, 12, 48);
+        thirdDate = LocalDateTime.of(2020, 2, 18, 13, 48);
         testFirstEntry = new JournalEntry(firstDate);
         testSecondEntry = new JournalEntry(secondDate);
         testThirdEntry = new JournalEntry(thirdDate);
@@ -43,7 +44,7 @@ public class EntriesCollectionTest {
         collection.addEntry(testFirstEntry);
         collection.addEntry(testSecondEntry);
         assertEquals(2, collection.getNumEntries());
-        assertEquals("2020/02/18 18:07 PM" + "\n" + "2020/02/01 09:18 AM" + "\n", collection.listAllEntries());
+        assertEquals("2020/02/18 06:07 PM" + "\n" + "2020/02/01 09:18 AM" + "\n", collection.listAllEntries());
     }
 
     @Test
@@ -60,8 +61,8 @@ public class EntriesCollectionTest {
     void testViewEntry() {
         collection.addEntry(testFirstEntry);
         testFirstEntry.setText("Today is my birthday, hooray!");
-        assertEquals("2020/02/01 09:18 AM" + "\n" + "Today is my birthday, hooray!",
-                collection.viewEntry(firstDate));
+        assertEquals("\n\n2020/02/01 09:18 AM" + "\n" + "Today is my birthday, hooray!",
+                collection.viewEntry(firstDate.toLocalDate()));
     }
 
     @Test
@@ -70,33 +71,34 @@ public class EntriesCollectionTest {
         collection.addEntry(testThirdEntry);
         testFirstEntry.setText("Today is my birthday, hooray!");
         testThirdEntry.setText("I broke my leg today.");
-        assertEquals("2020/02/18 12:48 PM" + "\n" + "I broke my leg today.", collection.viewEntry(thirdDate));
+        assertEquals("\n\n2020/02/18 01:48 PM" + "\n" + "I broke my leg today.",
+                collection.viewEntry(thirdDate.toLocalDate()));
     }
 
     @Test
     void testViewEntryDNE() {
         assertEquals("Entry cannot be found.",
-                collection.viewEntry(LocalDateTime.of(2020, 2, 3, 12, 4)));
+                collection.viewEntry(LocalDate.of(2020, 2, 3)));
     }
 
     @Test
     void testListSingleEntry() {
         collection.addEntry(testSecondEntry);
-        assertEquals("2020/02/18 18:07 PM" + "\n", collection.listAllEntries());
+        assertEquals("2020/02/18 06:07 PM" + "\n", collection.listAllEntries());
     }
 
     @Test
     void testListAllEntries() {
         collection.addEntry(testFirstEntry);
         collection.addEntry(testSecondEntry);
-        assertEquals("2020/02/18 18:07 PM" + "\n" + "2020/02/01 09:18 AM" + "\n", collection.listAllEntries());
+        assertEquals("2020/02/18 06:07 PM" + "\n" + "2020/02/01 09:18 AM" + "\n", collection.listAllEntries());
     }
 
     @Test
     void testListAllEntriesSameDay() {
         collection.addEntry(testSecondEntry);
         collection.addEntry(testThirdEntry);
-        assertEquals("2020/02/18 18:07 PM" + "\n" + "2020/02/18 12:48 PM" + "\n", collection.listAllEntries());
+        assertEquals("2020/02/18 06:07 PM" + "\n" + "2020/02/18 01:48 PM" + "\n", collection.listAllEntries());
     }
 
 }

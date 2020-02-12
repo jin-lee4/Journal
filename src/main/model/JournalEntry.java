@@ -9,15 +9,13 @@ import java.util.ArrayList;
 public class JournalEntry {
     // Represents a journal entry with the date it is created, text and photos added to entry
 
-    LocalDateTime time;
+    public LocalDateTime time;
     String text;
-    ArrayList<File> images;
 
     //EFFECTS: creates an empty entry
     public JournalEntry(LocalDateTime time) {
         this.time = time;
         this.text = "";
-        this.images = new ArrayList<>();
     }
 
     //MODIFIES: this
@@ -26,22 +24,10 @@ public class JournalEntry {
         this.text = text;
     }
 
-    //MODIFIES: this
-    //EFFECTS: adds an image to the entry
-    public void addImage(File img) {
-        this.images.add(img);
-    }
-
-    //MODIFIES: this
-    //EFFECTS: removes an image from the entry
-    public void deleteImage(File img) {
-        this.images.remove(img);
-    }
-
     //MODIFIES: time
     //EFFECTS: returns date as a string in format "yyyy/mm/dd hr:sec"
     public String dateToString(LocalDateTime date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm a");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd hh:mm a");
         return time.format(formatter);
     }
 

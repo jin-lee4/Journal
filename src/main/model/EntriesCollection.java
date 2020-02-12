@@ -1,7 +1,7 @@
 package model;
 
 import java.awt.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -35,13 +35,18 @@ public class EntriesCollection {
 
     //EFFECTS: returns entry with given date,
     //         if no entry with such date exists, return "Entry cannot be found."
-    public String viewEntry(LocalDateTime date) {
+    public String viewEntry(LocalDate date) {
+        StringBuilder entryText = new StringBuilder();
         for (JournalEntry next : entries) {
-            if (next.time == date) {
-                return next.dateToString(next.time) + "\n" + next.text;
+            if (next.time.toLocalDate().equals(date)) {
+                entryText.append("\n\n").append(next.dateToString(next.time)).append("\n").append(next.text);
             }
         }
-        return "Entry cannot be found.";
+        if (entryText.toString().equals("")) {
+            return "Entry cannot be found.";
+        } else {
+            return entryText.toString();
+        }
     }
 
     //EFFECTS: lists all entries with timestamps in chronological order of newest to oldest

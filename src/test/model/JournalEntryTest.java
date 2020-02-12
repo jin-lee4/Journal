@@ -11,15 +11,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class JournalEntryTest {
     private JournalEntry testEntry;
     private LocalDateTime date;
-    private File testImage;
-    private File testImage2;
 
     @BeforeEach
     void RunBefore() {
         date = LocalDateTime.of(2020,2,9,11,54);
         testEntry = new JournalEntry(date);
-        testImage = new File("data/tobs.jpg");
-        testImage2 = new File("data/jerms.jpg");
     }
 
     @Test
@@ -33,37 +29,6 @@ class JournalEntryTest {
         testEntry.setText("Today was my birthday! It was the best day ever. We had chocolate cake.");
         assertEquals("Today was my birthday! It was the best day ever. We had chocolate cake.",
                 testEntry.getText());
-    }
-
-    @Test
-    void testAddImageSingle() {
-        testEntry.addImage(testImage);
-        assertEquals(testImage, testEntry.images.get(0));
-    }
-
-    @Test
-    void testAddImageMultiple() {
-        testEntry.addImage(testImage);
-        testEntry.addImage(testImage2);
-        assertEquals(2, testEntry.images.size());
-        assertEquals(testImage, testEntry.images.get(0));
-        assertEquals(testImage2, testEntry.images.get(1));
-    }
-
-    @Test
-    void testRemoveImage() {
-        testEntry.addImage(testImage);
-        testEntry.deleteImage(testImage);
-        assertEquals(0, testEntry.images.size());
-    }
-
-    @Test
-    void testRemoveImageFromMultipleImages() {
-        testEntry.addImage(testImage);
-        testEntry.addImage(testImage2);
-        testEntry.deleteImage(testImage);
-        assertEquals(testImage2, testEntry.images.get(0));
-        assertEquals(1, testEntry.images.size());
     }
 
     @Test

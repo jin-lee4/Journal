@@ -14,7 +14,6 @@ import java.util.regex.MatchResult;
 // Journal application
 public class JournalApp {
     private EntriesCollection journal;
-    //private JournalEntry entry;
     private Scanner input;
 
     // EFFECTS: runs the journal application

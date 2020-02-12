@@ -7,8 +7,8 @@ import java.util.Collections;
 
 import model.JournalEntry;
 
+// Represents the total collection of journal entries user has created thus far, organized in chronological order
 public class EntriesCollection {
-    // Represents the total collection of journal entries user has created thus far, organized in chronological order
 
     public ArrayList<JournalEntry> entries;
     public int numEntries;

@@ -1,13 +1,10 @@
 package model;
 
-import java.awt.*;
-import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
+// Represents a journal entry with the date it is created, text and photos added to entry
 public class JournalEntry {
-    // Represents a journal entry with the date it is created, text and photos added to entry
 
     public LocalDateTime time;
     String text;

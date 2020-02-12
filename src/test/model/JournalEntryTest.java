@@ -3,7 +3,6 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;

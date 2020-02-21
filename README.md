@@ -34,3 +34,7 @@ my collection of entries
 in chronological order
 - As a user, I want to be able to select a journal entry from my collection
 and view that entry
+- As a user, I want to be able to save my journal and the entries when 
+I select the quit option
+- As a user, I want to be able to load my journal from file when 
+the program starts

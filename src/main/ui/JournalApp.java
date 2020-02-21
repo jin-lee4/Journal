@@ -98,7 +98,6 @@ public class JournalApp {
 
     //MODIFIES: this
     //EFFECTS: conducts deletion of an entry
-    //TODO: fix this to use title instead of date
     private void doDeleteEntry() {
         System.out.println(journal.listAllEntries());
         System.out.println("What was the title of the entry?");

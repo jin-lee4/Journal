@@ -4,12 +4,8 @@ package ui;
 import model.EntriesCollection;
 import model.JournalEntry;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.regex.MatchResult;
 
 // Journal application
 public class JournalApp {
@@ -78,92 +74,49 @@ public class JournalApp {
     //EFFECTS: conducts creation of new journal entry
     private void doAddEntry() {
         LocalDateTime dateTime = LocalDateTime.now();
-        JournalEntry newEntry = new JournalEntry(dateTime);
-        journal.addEntry(newEntry);
+        System.out.println("What would you like to name this entry?");
         input.nextLine();
-        String entryText = input.nextLine();
-        newEntry.setText(entryText);
+        String title = input.nextLine();
+        JournalEntry newEntry = new JournalEntry(title, dateTime);
+        journal.addEntry(newEntry);
+        addText(newEntry);
     }
 
-    //MODIFIES: this
-    //EFFECTS: conducts viewing of existing journal entry
+    private void addText(JournalEntry entry) {
+        System.out.println("Write your thoughts below:");
+        String entryText = input.nextLine();
+        entry.setText(entryText);
+    }
+
     private void doViewEntry() {
-        System.out.println("What date was the entry written?");
+        System.out.println("Here are all your entries.\nWhat was the title of the entry you're looking for?");
+        System.out.println(journal.listAllEntries());
         input.nextLine();
-        input.findInLine("(\\d\\d\\d\\d)\\/(\\d\\d)\\/(\\d\\d)");
-        MatchResult mr = input.match();
-        int year = Integer.parseInt(mr.group(1));
-        int month = Integer.parseInt(mr.group(2));
-        int day = Integer.parseInt(mr.group(3));
-        LocalDate inputDate = LocalDate.of(year, month, day);
-
-        ArrayList<JournalEntry> found = dateCount(inputDate);
-
-        if (dateCount(inputDate).size() > 1) {
-            System.out.println("There are multiple entries on this date. Here's what you wrote:");
-        }
-        System.out.println(journal.viewEntry(inputDate));
+        String title = input.nextLine();
+        System.out.println(journal.viewEntry(title));
     }
 
     //MODIFIES: this
     //EFFECTS: conducts deletion of an entry
+    //TODO: fix this to use title instead of date
     private void doDeleteEntry() {
-        doListAllEntries();
-        System.out.println("What date was the entry written?");
+        System.out.println(journal.listAllEntries());
+        System.out.println("What was the title of the entry?");
         input.nextLine();
-        input.findInLine("(\\d\\d\\d\\d)\\/(\\d\\d)\\/(\\d\\d)");
-        MatchResult mr = input.match();
-        int year = Integer.parseInt(mr.group(1));
-        int month = Integer.parseInt(mr.group(2));
-        int day = Integer.parseInt(mr.group(3));
-        LocalDate inputDate = LocalDate.of(year, month, day);
-
-        int numDateFound = dateCount(inputDate).size();
-
-        if (numDateFound > 1) {
-            narrowDeleteEntrySearch();
-        } else if (numDateFound == 1) {
-            journal.deleteEntry(dateCount(inputDate).get(0));
-            System.out.println("Your entry has been deleted!");
-        } else {
-            System.out.println("Entry cannot be found.");
-        }
-    }
-
-    private ArrayList<JournalEntry> dateCount(LocalDate d) {
-        ArrayList<JournalEntry> entriesFound = new ArrayList<>();
-
+        String title = input.nextLine();
         for (JournalEntry next : journal.entries) {
-            if (next.time.toLocalDate().equals(d)) {
-                entriesFound.add(next);
-            }
-        }
-        return entriesFound;
-    }
-
-     //EFFECTS: searches for entry based on time
-    private void narrowDeleteEntrySearch() {
-        System.out.println("We found more than one entry on this date. What time was it written?");
-        input.nextLine();
-        input.findInLine("(\\d\\d)\\:(\\d\\d)\\ [A, a, p, P][m, M]");
-        MatchResult mrTime = input.match();
-
-        int hour = Integer.parseInt(mrTime.group(1));
-        int minute = Integer.parseInt(mrTime.group(2));
-        LocalTime inputTime = LocalTime.of(hour, minute);
-
-        for (JournalEntry next : journal.entries) {
-            if (next.time.toLocalTime().equals(inputTime)) {
+            if (next.title.equals(title)) {
                 journal.deleteEntry(next);
-                System.out.println("This entry has been deleted!");
+                System.out.println("This entry has been deleted.");
             }
         }
+        System.out.println("Entry cannot be found.");
     }
 
     //MODIFIES: this
     //EFFECTS: conducts listing of all entries
     private void doListAllEntries() {
-        System.out.println("Here are all the entries you've written from newest to oldest:\n");
+        System.out.println("Here are all the entries you've written from oldest to newest:\n");
         System.out.println(journal.listAllEntries());
     }
 }

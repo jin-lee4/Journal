@@ -7,10 +7,12 @@ import java.time.format.DateTimeFormatter;
 public class JournalEntry {
 
     public LocalDateTime time;
+    public String title;
     String text;
 
     //EFFECTS: creates an empty entry
-    public JournalEntry(LocalDateTime time) {
+    public JournalEntry(String title, LocalDateTime time) {
+        this.title = title;
         this.time = time;
         this.text = "";
     }

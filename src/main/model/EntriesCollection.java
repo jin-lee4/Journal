@@ -1,11 +1,6 @@
 package model;
 
-import java.awt.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
-
-import model.JournalEntry;
 
 // Represents the total collection of journal entries user has created thus far, organized in chronological order
 public class EntriesCollection {
@@ -33,13 +28,12 @@ public class EntriesCollection {
         numEntries--;
     }
 
-    //EFFECTS: returns entry with given date,
-    //         if no entry with such date exists, return "Entry cannot be found."
-    public String viewEntry(LocalDate date) {
+    public String viewEntry(String title) {
         StringBuilder entryText = new StringBuilder();
         for (JournalEntry next : entries) {
-            if (next.time.toLocalDate().equals(date)) {
-                entryText.append("\n\n").append(next.dateToString(next.time)).append("\n").append(next.text);
+            if (next.title.equals(title)) {
+                String header = next.dateToString(next.time) + " " + next.title;
+                entryText.append("\n\n").append(header).append("\n").append(next.getText());
             }
         }
         if (entryText.toString().equals("")) {
@@ -49,19 +43,13 @@ public class EntriesCollection {
         }
     }
 
-    //EFFECTS: lists all entries with timestamps in chronological order of newest to oldest
+    //EFFECTS: lists all entries with timestamps in chronological order of oldest to newest
     public String listAllEntries() {
         StringBuilder listOfEntries = new StringBuilder();
-        ArrayList<String> dates = new ArrayList<>();
 
         for (JournalEntry next : entries) {
-            dates.add(next.dateToString(next.time));
-        }
-
-        Collections.sort(dates, Collections.reverseOrder());
-
-        for (String d : dates) {
-            listOfEntries.append(d).append("\n");
+            String header = next.dateToString(next.time) + " " + next.title;
+            listOfEntries.append(header).append("\n");
         }
         return listOfEntries.toString();
     }

@@ -10,16 +10,19 @@ import static org.junit.jupiter.api.Assertions.*;
 class JournalEntryTest {
     private JournalEntry testEntry;
     private LocalDateTime date;
+    private String title;
 
     @BeforeEach
     void RunBefore() {
         date = LocalDateTime.of(2020,2,9,11,54);
-        testEntry = new JournalEntry(date);
+        title = "My Birthday";
+        testEntry = new JournalEntry(title, date);
     }
 
     @Test
     void testConstructor() {
         assertEquals("Nothing yet. What's on your mind?", testEntry.getText());
+        assertEquals(title, testEntry.title);
         assertEquals(date, testEntry.time);
     }
 

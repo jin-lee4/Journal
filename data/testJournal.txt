@@ -1,0 +1,2 @@
+Monday::2020-02-22T19:23::It was Joe's birthday today.
+Tuesday::2020-02-23T17:44::I got a haircut!

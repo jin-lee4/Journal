@@ -1,10 +1,14 @@
 package model;
 
+import persistence.Reader;
+import persistence.Saveable;
+
+import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 // Represents a journal entry with the date it is created, text and photos added to entry
-public class JournalEntry {
+public class JournalEntry implements Saveable {
 
     public LocalDateTime time;
     public String title;
@@ -37,6 +41,15 @@ public class JournalEntry {
             return "Nothing yet. What's on your mind?";
         }
         return this.text;
+    }
+
+    @Override
+    public void save(PrintWriter printWriter) {
+        printWriter.print(title);
+        printWriter.print(Reader.DELIMITER);
+        printWriter.print(time);
+        printWriter.print(Reader.DELIMITER);
+        printWriter.println(text);
     }
 
 }

@@ -11,8 +11,9 @@ import java.util.Arrays;
 import java.util.List;
 
 //A reader that can read journal data from a file
+//Methods taken from TellerApp application
 public class Reader {
-    public static final String DELIMITER = ",";
+    public static final String DELIMITER = "::";
 
     //EFFECTS: returns a list of entries parsed from file; throws
     // IOException if an exception is raised when opening / reading from file

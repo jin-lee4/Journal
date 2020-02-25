@@ -3,12 +3,16 @@ package ui;
 
 import model.EntriesCollection;
 import model.JournalEntry;
+import persistence.Writer;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
 // Journal application
 public class JournalApp {
+    private String journalFile = "./data/JOURNAL.txt";
     private EntriesCollection journal;
     private Scanner input;
 
@@ -42,6 +46,7 @@ public class JournalApp {
 
     //MODIFIES: this
     //EFFECTS: initializes journal with no journal entries
+    //TODO: add loading existing journal implementation
     private void loadJournal() {
         journal = new EntriesCollection();
     }
@@ -49,14 +54,25 @@ public class JournalApp {
     //MODIFIES: this
     //EFFECTS: processes user command
     private void processCommand(String command) {
-        if (command.equals("write")) {
-            doAddEntry();
-        } else if (command.equals("delete")) {
-            doDeleteEntry();
-        } else if (command.equals("view")) {
-            doViewEntry();
-        } else if (command.equals("all")) {
-            doListAllEntries();
+        switch (command) {
+            case ("write"):
+                doAddEntry();
+                break;
+            case ("delete"):
+                doDeleteEntry();
+                break;
+            case ("view"):
+                doViewEntry();
+                break;
+            case ("all"):
+                doListAllEntries();
+                break;
+            case ("save"):
+                saveJournal();
+                break;
+            case("load"):
+                printJournal();
+                break;
         }
     }
 
@@ -67,7 +83,19 @@ public class JournalApp {
         System.out.println("Enter 'delete' to delete an entry");
         System.out.println("Enter 'view' to view an entry");
         System.out.println("Enter 'all' to view a list of all existing entries");
+        System.out.println("Enter 'save' to save new entries to your journal");
+        System.out.println("Enter 'open' to open an existing journal");
         System.out.println("Enter 'quit' to exit the program");
+    }
+
+    //MODIFIES: this
+    //EFFECTS:
+    private void saveJournal() {
+//TODO: implement
+    }
+
+    private void printJournal() {
+//TODO: implement
     }
 
     //MODIFIES: this

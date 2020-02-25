@@ -1,2 +1,2 @@
-Monday,2020-02-09T11:54:30,Mondays are my least favourite day! They are so tiring and boring. All of the classes I hate are on Mondays.
-Mom’s Birthday,2020-02-11T20:33:40,For mom’s birthday we threw her a surprise party. She was so surprised and I think her favourite part was the chocolate cake.
+Monday::2020-02-09T11:54:30::Mondays are my least favourite day! They are so tiring and boring. All of the classes I hate are on Mondays.
+Mom’s Birthday::2020-02-11T20:33:40::For mom’s birthday, we threw her a surprise party. She was so surprised and I think her favourite part was the chocolate cake.

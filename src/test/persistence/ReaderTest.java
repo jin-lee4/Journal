@@ -24,7 +24,7 @@ public class ReaderTest {
             JournalEntry secondEntry = entries.get(1);
             assertEquals("Mom’s Birthday", secondEntry.title);
             assertEquals("2020/02/11 08:33 PM", secondEntry.dateToString(secondEntry.time));
-            assertEquals("For mom’s birthday we threw her a surprise party. She was so surprised and " +
+            assertEquals("For mom’s birthday, we threw her a surprise party. She was so surprised and " +
                     "I think her favourite part was the chocolate cake.", secondEntry.getText());
 
         } catch (IOException e) {
@@ -36,8 +36,7 @@ public class ReaderTest {
         try {
             Reader.readEntries(new File("./path/doesnt/exist/testEntry.txt"));
         } catch (IOException e) {
-
+            //nothing happens
         }
-        // expected
     }
 }

@@ -1,6 +1,7 @@
 package persistence;
 
 import model.JournalEntry;
+import persistence.Reader;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -11,6 +12,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class ReaderTest {
+
+    @Test
+    void testConstructor() {
+        new Reader();
+    }
+
     @Test
     void testParseJournalFile1() {
         try {

@@ -3,12 +3,18 @@ package ui;
 
 import model.EntriesCollection;
 import model.JournalEntry;
+import persistence.Reader;
 import persistence.Writer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Scanner;
+
+import static javafx.application.Platform.exit;
 
 // Journal application
 public class JournalApp {
@@ -45,10 +51,19 @@ public class JournalApp {
     }
 
     //MODIFIES: this
-    //EFFECTS: initializes journal with no journal entries
+    //EFFECTS: load entries from journalFile if that file exists,
+    // otherwise initializes empty journal
     //TODO: add loading existing journal implementation
     private void loadJournal() {
-        journal = new EntriesCollection();
+        try {
+            journal = new EntriesCollection();
+            List<JournalEntry> entries = Reader.readEntries(new File(journalFile));
+            for (JournalEntry j : entries) {
+                journal.addEntry(j);
+            }
+        } catch (IOException e) {
+            initialize();
+        }
     }
 
     //MODIFIES: this
@@ -70,9 +85,6 @@ public class JournalApp {
             case ("save"):
                 saveJournal();
                 break;
-            case("load"):
-                printJournal();
-                break;
         }
     }
 
@@ -84,18 +96,32 @@ public class JournalApp {
         System.out.println("Enter 'view' to view an entry");
         System.out.println("Enter 'all' to view a list of all existing entries");
         System.out.println("Enter 'save' to save new entries to your journal");
-        System.out.println("Enter 'open' to open an existing journal");
         System.out.println("Enter 'quit' to exit the program");
     }
 
     //MODIFIES: this
-    //EFFECTS:
-    private void saveJournal() {
-//TODO: implement
+    //EFFECTS: initializes new journal
+    private void initialize() {
+        journal = new EntriesCollection();
     }
 
-    private void printJournal() {
-//TODO: implement
+    //MODIFIES: this
+    //EFFECTS: saves data of new entries to journalFile
+    private void saveJournal() {
+        try {
+            Writer writer = new Writer(new File(journalFile));
+
+            for (JournalEntry entry : journal.entries) {
+                writer.write(entry);
+            }
+
+            writer.close();
+            System.out.println("Journal entries saved to journal: " + journalFile);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to save journal entries to: " + journalFile);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 
     //MODIFIES: this
@@ -105,7 +131,29 @@ public class JournalApp {
         System.out.println("What would you like to name this entry?");
         input.nextLine();
         String title = input.nextLine();
-        JournalEntry newEntry = new JournalEntry(title, dateTime);
+
+        while (isTaken(title)) {
+            System.out.println("This title already exists, please enter another.");
+            title = input.nextLine();
+            isTaken(title);
+        }
+
+        createEntry(title, dateTime);
+    }
+
+    private boolean isTaken(String t) {
+        boolean taken = false;
+        for (JournalEntry j : journal.entries) {
+            if (j.title.equals(t)) {
+                taken = true;
+                break;
+            }
+        }
+        return taken;
+    }
+
+    private void createEntry(String t, LocalDateTime d) {
+        JournalEntry newEntry = new JournalEntry(t, d);
         journal.addEntry(newEntry);
         addText(newEntry);
     }
@@ -131,10 +179,12 @@ public class JournalApp {
         System.out.println("What was the title of the entry?");
         input.nextLine();
         String title = input.nextLine();
+
         for (JournalEntry next : journal.entries) {
             if (next.title.equals(title)) {
                 journal.deleteEntry(next);
                 System.out.println("This entry has been deleted.");
+                return;
             }
         }
         System.out.println("Entry cannot be found.");

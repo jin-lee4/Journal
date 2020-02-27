@@ -108,7 +108,7 @@ public class JournalApp {
     //Code partially taken from TellerApp
     //MODIFIES: this
     //EFFECTS: saves data of new entries to journalFile
-    private void saveJournal() {
+    public void saveJournal() {
         try {
             Writer writer = new Writer(new File(journalFile));
 

@@ -1,9 +1,5 @@
 package model;
 
-import persistence.Saveable;
-import persistence.Writer;
-
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
 // Represents the total collection of journal entries user has created thus far, organized in chronological order

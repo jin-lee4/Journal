@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+//Code taken from TellerApp application, Reader class
 //A reader that can read journal data from a file
-//Methods taken from TellerApp application
 public class Reader {
     public static final String DELIMITER = "::";
 

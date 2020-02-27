@@ -50,10 +50,10 @@ public class JournalApp {
         }
     }
 
+    //Code partially taken from TellerApp
     //MODIFIES: this
     //EFFECTS: load entries from journalFile if that file exists,
     // otherwise initializes empty journal
-    //TODO: add loading existing journal implementation
     private void loadJournal() {
         try {
             journal = new EntriesCollection();
@@ -105,6 +105,7 @@ public class JournalApp {
         journal = new EntriesCollection();
     }
 
+    //Code partially taken from TellerApp
     //MODIFIES: this
     //EFFECTS: saves data of new entries to journalFile
     private void saveJournal() {

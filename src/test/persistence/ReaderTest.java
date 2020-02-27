@@ -11,6 +11,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+//Code partially taken from TellerApp, Reader tests
 public class ReaderTest {
 
     @Test

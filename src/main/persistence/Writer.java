@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
+//Code taken from TellerApp, Writer class
 // A writer that can write entry data to a file
 public class Writer {
     private PrintWriter printWriter;

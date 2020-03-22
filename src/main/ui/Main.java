@@ -5,6 +5,8 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.EntriesCollection;
@@ -21,9 +23,6 @@ import java.util.List;
 
 import static javafx.geometry.Pos.*;
 
-//TODO: view a journal entry (done but need to make it look better)
-//TODO: customize appearance of window, buttons, and text/labels
-
 public class Main extends Application {
 
     public static final int WIDTH = 600;
@@ -31,6 +30,13 @@ public class Main extends Application {
     public static final int PADDING = 15;
     Stage window;
     ListView<String> entries;
+
+    String startup = "./data/StartUp.wav";
+    String error = "./data/Error.wav";
+    String successful = "./data/Successful.wav";
+    Media startUpSound = new Media(new File(startup).toURI().toString());
+    Media errorSound = new Media(new File(error).toURI().toString());
+    Media successfulSound = new Media(new File(successful).toURI().toString());
 
     EntriesCollection journal;
     private String journalFile = "./data/JOURNAL.txt";
@@ -50,11 +56,11 @@ public class Main extends Application {
         } catch (IOException e) {
             initialize();
         }
-
         window = primaryStage;
 
         window.setScene(createMainScene());
         window.show();
+        playSound(startUpSound);
     }
 
     //MODIFIES: this
@@ -69,7 +75,6 @@ public class Main extends Application {
         main.setAlignment(CENTER);
         options.setAlignment(CENTER);
 
-        //TODO: customize appearance of label & buttons
         Label header = new Label("What would you like to do today?");
         main.getChildren().add(header);
 
@@ -89,8 +94,8 @@ public class Main extends Application {
     }
 
     private Scene createWriteEntryScene() {
-        VBox main = new VBox(PADDING);
-        main.setPadding(new Insets(PADDING, PADDING, PADDING, PADDING));
+        Pane main = createMainVBox();
+        Pane options = createOptionsHBox();
 
         Label title = new Label("Title:");
         TextField titleField = new TextField();
@@ -99,13 +104,10 @@ public class Main extends Application {
         TextArea textField = new TextArea();
         textField.setPrefHeight(350);
 
-        HBox options = new HBox(PADDING);
-        options.setPadding(new Insets(PADDING, PADDING, PADDING, PADDING));
-        options.setAlignment(BOTTOM_RIGHT);
-
         Button save = new Button("Save");
         save.setOnAction(e -> {
             createEntry(titleField.getText(), textField.getText());
+            playSound(successfulSound);
             Label saveSuccessful = new Label("Saved successfully.");
             options.getChildren().add(saveSuccessful);
         });
@@ -119,14 +121,10 @@ public class Main extends Application {
     }
 
     private Scene createViewEntriesScene() {
-        VBox main = new VBox(PADDING);
-        main.setPadding(new Insets(PADDING, PADDING, PADDING, PADDING));
+        Pane main = createMainVBox();
+        Pane options = createOptionsHBox();
 
         addEntriesToList();
-
-        HBox options = new HBox(PADDING);
-        options.setPadding(new Insets(PADDING, PADDING, PADDING, PADDING));
-        options.setAlignment(BOTTOM_RIGHT);
 
         Button view = new Button("View");
         view.setOnAction(e -> viewButtonClickEvent());
@@ -146,6 +144,7 @@ public class Main extends Application {
     private void viewButtonClickEvent() {
         String selected = entries.getSelectionModel().getSelectedItem();
         if (selected == null) {
+            playSound(errorSound);
             AlertBox.display("Error", "No entry has been selected.");
         } else {
             window.setScene(viewEntryScene(searchEntry(selected)));
@@ -160,8 +159,8 @@ public class Main extends Application {
 
     ///TODO: fix the save feature (overwrite old entry)
     private Scene createEditEntryScene(JournalEntry entry) {
-        VBox main = new VBox(PADDING);
-        main.setPadding(new Insets(PADDING, PADDING, PADDING, PADDING));
+        Pane main = createMainVBox();
+        Pane options = createOptionsHBox();
 
         Label title = new Label("Title:");
         TextField titleField = new TextField();
@@ -170,18 +169,12 @@ public class Main extends Application {
         Label textPrompt = new Label("Write below:");
         TextArea textField = new TextArea();
         textField.setText(entry.getText());
-        textField.setPrefHeight(350);
-
-        HBox options = new HBox(PADDING);
-        options.setPadding(new Insets(PADDING, PADDING, PADDING, PADDING));
-        options.setAlignment(BOTTOM_RIGHT);
 
         Button save = new Button("Save");
         save.setOnAction(e -> {
-            entry.setText(textField.getText());
-            entry.title = titleField.getText();
-
+            saveEditedEntry(entry, titleField.getText(), textField.getText());
             Label saveSuccessful = new Label("Saved successfully.");
+            playSound(successfulSound);
             options.getChildren().add(saveSuccessful);
         });
         Button back = new Button("Back");
@@ -191,6 +184,11 @@ public class Main extends Application {
         main.getChildren().addAll(title, titleField, textPrompt, textField, options);
 
         return new Scene(main, WIDTH, HEIGHT);
+    }
+
+    private void saveEditedEntry(JournalEntry entry, String t, String txt) {
+        entry.setText(txt);
+        entry.title = t;
     }
 
     private ListView addEntriesToList() {
@@ -216,7 +214,9 @@ public class Main extends Application {
 
     private void selectedEntryDeleteButtonClickEvent() {
         String selected = entries.getSelectionModel().getSelectedItem();
+
         if (selected == null) {
+            playSound(errorSound);
             AlertBox.display("Error", "No entry has been selected.");
         } else {
             deleteButtonClickEvent(searchEntry(selected));
@@ -260,8 +260,27 @@ public class Main extends Application {
         if (answer) {
             journal.deleteEntry(entry);
             window.setScene(createViewEntriesScene());
+            playSound(successfulSound);
             AlertBox.display("Successful", "Your entry has been deleted.");
         }
+    }
+
+    private Pane createOptionsHBox() {
+        HBox options = new HBox(PADDING);
+        options.setPadding(new Insets(PADDING, PADDING, PADDING, PADDING));
+        options.setAlignment(BOTTOM_RIGHT);
+        return options;
+    }
+
+    private Pane createMainVBox() {
+        VBox main = new VBox(PADDING);
+        main.setPadding(new Insets(PADDING, PADDING, PADDING, PADDING));
+        return main;
+    }
+
+    private void playSound(Media sound) {
+        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.play();
     }
 
     private void confirmClose() {
@@ -311,6 +330,8 @@ public class Main extends Application {
 
             writer.close();
         } catch (FileNotFoundException e) {
+            MediaPlayer errorMediaPlayer = new MediaPlayer(errorSound);
+            errorMediaPlayer.play();
             AlertBox.display("Error", "Entry could not be saved.");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -320,6 +341,8 @@ public class Main extends Application {
     private void createEntry(String t, String txt) {
 
         if (isTaken(t)) {
+            MediaPlayer errorMediaPlayer = new MediaPlayer(errorSound);
+            errorMediaPlayer.play();
             AlertBox.display("Error", "Title already exists, please enter another.");
         } else {
             LocalDateTime dateTime = LocalDateTime.now();

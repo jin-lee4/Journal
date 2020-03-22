@@ -23,6 +23,7 @@ import java.util.List;
 
 import static javafx.geometry.Pos.*;
 
+//Journal application GUI
 public class Main extends Application {
 
     public static final int WIDTH = 600;
@@ -41,10 +42,14 @@ public class Main extends Application {
     EntriesCollection journal;
     private String journalFile = "./data/JOURNAL.txt";
 
+    //EFFECTS: runs the journal application
     public static void main(String[] args) {
         launch(args);
     }
 
+    //MODIFIES: this
+    //EFFECTS: load entries from journalFile if that file exists, otherwise initializes empty journal
+    //         sets window scene to createMainScene()
     @Override
     public void start(Stage primaryStage) {
         try {
@@ -69,6 +74,8 @@ public class Main extends Application {
         journal = new EntriesCollection();
     }
 
+    //MODIFIES: this
+    //EFFECTS: creates a new scene for program's startup
     private Scene createMainScene() {
         VBox main = new VBox(PADDING);
         HBox options = new HBox(PADDING);
@@ -93,6 +100,8 @@ public class Main extends Application {
         return new Scene(main, WIDTH, HEIGHT);
     }
 
+    //MODIFIES: this
+    //EFFECTS: creates a new scene for writing a new entry
     private Scene createWriteEntryScene() {
         Pane main = createMainVBox();
         Pane options = createOptionsHBox();
@@ -120,6 +129,8 @@ public class Main extends Application {
         return new Scene(main, WIDTH, HEIGHT);
     }
 
+    //MODIFIES: this
+    //EFFECTS: creates a new scene to view all entries
     private Scene createViewEntriesScene() {
         Pane main = createMainVBox();
         Pane options = createOptionsHBox();
@@ -141,6 +152,9 @@ public class Main extends Application {
         return new Scene(main, WIDTH, HEIGHT);
     }
 
+    //MODIFIES: this
+    //EFFECTS: button click event to view entry from createViewEntriesScene()
+    //         if no item in ListView is selected, AlertBox is displayed
     private void viewButtonClickEvent() {
         String selected = entries.getSelectionModel().getSelectedItem();
         if (selected == null) {
@@ -151,13 +165,17 @@ public class Main extends Application {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: button click event to edit an entry from createViewEntryScene()
+    //         sets window to createEditEntryScene
     private void editButtonClickEvent(JournalEntry entry) {
 
         window.setScene(createEditEntryScene(entry));
 
     }
 
-    ///TODO: fix the save feature (overwrite old entry)
+    //MODIFIES: this
+    //EFFECTS: creates a new scene for editing an entry
     private Scene createEditEntryScene(JournalEntry entry) {
         Pane main = createMainVBox();
         Pane options = createOptionsHBox();
@@ -186,20 +204,23 @@ public class Main extends Application {
         return new Scene(main, WIDTH, HEIGHT);
     }
 
+    //MODIFIES: entry
+    //EFFECTS: sets entry text to txt, entry title to t
     private void saveEditedEntry(JournalEntry entry, String t, String txt) {
         entry.setText(txt);
         entry.title = t;
     }
 
-    private ListView addEntriesToList() {
+    //EFFECTS: returns a ListView of date + time of each entry in journal
+    private void addEntriesToList() {
         entries = new ListView<>();
         for (JournalEntry next : journal.entries) {
             String header = next.dateToString(next.time) + " " + next.title;
             entries.getItems().add(header);
         }
-        return entries;
     }
 
+    //EFFECTS: returns journal entry that has same date + time as selected
     private JournalEntry searchEntry(String selected) {
 
         JournalEntry found = null;
@@ -212,6 +233,9 @@ public class Main extends Application {
         return found;
     }
 
+    //MODIFIES: this
+    //EFFECTS: initiates deleteButtonClickEvent if selected entry has been found
+    //         if no selected entry has been found, AlertBox is displayed
     private void selectedEntryDeleteButtonClickEvent() {
         String selected = entries.getSelectionModel().getSelectedItem();
 
@@ -223,6 +247,8 @@ public class Main extends Application {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: creates a new scene to view a journal entry
     private Scene viewEntryScene(JournalEntry entry) {
         String time = entry.dateToString(entry.time);
 
@@ -255,6 +281,9 @@ public class Main extends Application {
         return new Scene(main, WIDTH, HEIGHT);
     }
 
+    //MODIFIES: this, journal
+    //EFFECTS: displays ConfirmBox; if answer is true, entry is deleted
+    //         if answer is false, nothing is changed
     private void deleteButtonClickEvent(JournalEntry entry) {
         boolean answer = ConfirmBox.display("Delete Entry", "Are you sure you'd like to delete?");
         if (answer) {
@@ -265,6 +294,8 @@ public class Main extends Application {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: returns a new HBox
     private Pane createOptionsHBox() {
         HBox options = new HBox(PADDING);
         options.setPadding(new Insets(PADDING, PADDING, PADDING, PADDING));
@@ -272,19 +303,24 @@ public class Main extends Application {
         return options;
     }
 
+    //MODIFIES: this
+    //EFFECTS: returns a new VBox
     private Pane createMainVBox() {
         VBox main = new VBox(PADDING);
         main.setPadding(new Insets(PADDING, PADDING, PADDING, PADDING));
         return main;
     }
 
+    //EFFECTS: creates new MediaPlayer and plays sound
     private void playSound(Media sound) {
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.play();
     }
 
+    //MODIFIES: this
+    //EFFECTS: displays ConfirmBox; if answer is true, window is closed
+    //         if answer is false, nothing is changed
     private void confirmClose() {
-
         boolean answer = ConfirmBox.display("Close Program", "Are you sure you want to exit?");
         if (answer) {
             answer = ConfirmBox.display("Save", "Would you like to save changes?");
@@ -295,6 +331,9 @@ public class Main extends Application {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: displays ConfirmBox; if answer and found is true, window changes to createMainScene()
+    //         if answer is false, nothing is changed
     private void confirmBack(String t) {
 
         boolean found = false;
@@ -318,7 +357,7 @@ public class Main extends Application {
     }
 
     //Code partially taken from TellerApp
-    //MODIFIES: this
+    //MODIFIES: this, journal
     //EFFECTS: saves data of new entries to journalFile
     public void saveJournal() {
         try {
@@ -338,6 +377,9 @@ public class Main extends Application {
         }
     }
 
+    //MODIFIES: journal
+    //EFFECTS: if isTaken is false, creates a new entry with current date/time, t as title and txt as entry text
+    //         if isTaken is true, AlertBox is displayed
     private void createEntry(String t, String txt) {
 
         if (isTaken(t)) {
@@ -352,6 +394,7 @@ public class Main extends Application {
         }
     }
 
+    //EFFECTS: returns true if t is equal to another entry's title
     private boolean isTaken(String t) {
         boolean taken = false;
         for (JournalEntry j : journal.entries) {

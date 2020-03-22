@@ -38,3 +38,16 @@ and view that entry
 I select the quit option
 - As a user, I want to be able to load my journal from file when 
 the program starts
+- As a user, I want to be able to edit the contents of an existing journal entry
+
+##Instructions for Grader
+- To generate the first required event (add an entry to journal), click 
+"New Entry" button on main scene, create a new entry and click "save" button
+- To generate the second required event (view all entries in journal) click 
+"View Entries" button on main scene
+- To trigger audio component, run the program (start up sound),
+save/delete an entry (success sound), click "View" or "Delete" button without
+any entries selected on all entries scene (error sound)
+- To save the state of my application, click "Quit" button on main scene,
+click "Yes" to ConfirmBox, then "Yes" to save
+- State of application automatically loads when program is run

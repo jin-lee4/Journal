@@ -3,10 +3,7 @@ package ui;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -99,7 +96,7 @@ public class Main extends Application {
         TextField titleField = new TextField();
 
         Label textPrompt = new Label("Write below:");
-        TextField textField = new TextField();
+        TextArea textField = new TextArea();
         textField.setPrefHeight(350);
 
         HBox options = new HBox(PADDING);
@@ -171,7 +168,7 @@ public class Main extends Application {
         titleField.setText(entry.title);
 
         Label textPrompt = new Label("Write below:");
-        TextField textField = new TextField();
+        TextArea textField = new TextArea();
         textField.setText(entry.getText());
         textField.setPrefHeight(350);
 

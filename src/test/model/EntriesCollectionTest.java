@@ -1,5 +1,6 @@
 package model;
 
+import exceptions.NoEntryFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -57,26 +58,36 @@ public class EntriesCollectionTest {
     }
 
     @Test
-    void testViewEntry() {
+    void testViewEntryFound() {
         collection.addEntry(testFirstEntry);
         testFirstEntry.setText("Today is my birthday, hooray!");
-        assertEquals("\n\n2020/02/01 09:18 AM Birthday\n" + "Today is my birthday, hooray!",
-                collection.viewEntry(testFirstEntry.title));
+        try {
+            collection.viewEntry(testFirstEntry.title);
+        } catch (NoEntryFoundException e) {
+            fail("Exception should not have been thrown.");
+        }
     }
 
     @Test
-    void testViewEntryBiggerList() {
+    void testViewEntryBiggerListFound() {
         collection.addEntry(testFirstEntry);
         collection.addEntry(testThirdEntry);
         testFirstEntry.setText("Today is my birthday, hooray!");
         testThirdEntry.setText("I broke my leg today.");
-        assertEquals("\n\n2020/02/18 01:48 PM Rainy Day\n" + "I broke my leg today.",
-                collection.viewEntry(testThirdEntry.title));
+        try {
+            collection.viewEntry(testThirdEntry.title);
+        } catch (NoEntryFoundException e) {
+            fail("Exception should not have been thrown.");
+        }
     }
 
     @Test
-    void testViewEntryDNE() {
-        assertEquals("Entry cannot be found.", collection.viewEntry("Sunny Day"));
+    void testViewEntryNoEntryFoundException() {
+        try {
+            collection.viewEntry("Sunday");
+        } catch (NoEntryFoundException e) {
+            // nothing happens
+        }
     }
 
     @Test
@@ -94,7 +105,7 @@ public class EntriesCollectionTest {
     }
 
     @Test
-    void testListAllEntriesSameDay() {
+     void testListAllEntriesSameDay() {
         collection.addEntry(testSecondEntry);
         collection.addEntry(testThirdEntry);
         assertEquals("2020/02/18 06:07 PM First Day of School" + "\n" + "2020/02/18 01:48 PM Rainy Day\n",

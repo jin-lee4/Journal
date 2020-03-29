@@ -43,6 +43,8 @@ public class JournalEntry implements Saveable {
         return this.text;
     }
 
+    //MODIFIES: this
+    //EFFECTS: saves title, time, and text of entry
     @Override
     public void save(PrintWriter printWriter) {
         printWriter.print(title);

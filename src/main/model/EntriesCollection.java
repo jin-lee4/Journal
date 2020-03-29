@@ -1,6 +1,9 @@
 package model;
 
+import exceptions.NoEntryFoundException;
+
 import java.util.ArrayList;
+import java.util.Map;
 
 // Represents the total collection of journal entries user has created thus far, organized in chronological order
 public class EntriesCollection {
@@ -28,16 +31,20 @@ public class EntriesCollection {
         numEntries--;
     }
 
-    public String viewEntry(String title) {
+    //EFFECTS: finds journal entry with title "title" and returns its time, title and text
+    //         if journal entry is not found, NoEntryFoundException is thrown
+    public String viewEntry(String title) throws NoEntryFoundException {
         StringBuilder entryText = new StringBuilder();
+
         for (JournalEntry next : entries) {
             if (next.title.equals(title)) {
                 String header = next.dateToString(next.time) + " " + next.title;
                 entryText.append("\n\n").append(header).append("\n").append(next.getText());
             }
         }
+
         if (entryText.toString().equals("")) {
-            return "Entry cannot be found.";
+            throw new NoEntryFoundException("This entry cannot be found.");
         } else {
             return entryText.toString();
         }

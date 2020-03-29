@@ -51,3 +51,8 @@ any entries selected on all entries scene (error sound)
 - To save the state of my application, click "Quit" button on main scene,
 click "Yes" to ConfirmBox, then "Yes" to save
 - State of application automatically loads when program is run
+
+##Phase 4 Task 2
+- Robust method made in EntriesCollection class for viewEntry method
+- Robust methods used in Reader class (readEntries, readFile)
+- Robust methods used in Writer class (Writer)

@@ -58,3 +58,10 @@ click "Yes" to ConfirmBox, then "Yes" to save
 - Type hierarchy created with -Panel classes in ui class extending AppPanel,
 all override abstract display method within AppPanel.
 
+##Phase 4: Task 3
+- Main class has poor cohesion as the class is used to run the journal 
+application, but the entire class contains all the UI elements, various scenes,
+and event handlers.
+    - Singleton design pattern used to maintain only one journal is
+    instantiated and used throughout different scenes.
+    - Scenes have been refactored into separate classes.

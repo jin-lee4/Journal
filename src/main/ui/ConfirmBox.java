@@ -12,7 +12,7 @@ public class ConfirmBox extends PopUpBox {
     private static boolean answer;
 
     public static boolean display(String title, String message) {
-        window = createWindow(title, message);
+        window = createWindow(title);
         Label confirmationMessage = new Label(message);
 
         //Create two buttons

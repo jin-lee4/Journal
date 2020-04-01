@@ -11,7 +11,7 @@ public class AlertBox extends PopUpBox {
     static Stage window;
 
     public static void display(String title, String message) {
-        window = createWindow(title, message);
+        window = createWindow(title);
 
         Label alertMessage = new Label(message);
         Button closeButton = new Button("Close");

@@ -8,7 +8,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import model.Date;
 import model.JournalEntry;
 
 import static javafx.geometry.Pos.BOTTOM_RIGHT;

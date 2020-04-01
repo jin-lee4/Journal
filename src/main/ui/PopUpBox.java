@@ -13,7 +13,7 @@ public class PopUpBox {
     static VBox layout;
     static Scene scene;
 
-    protected static Stage createWindow(String title, String message) {
+    protected static Stage createWindow(String title) {
         window = new Stage();
 
         window.initModality(Modality.APPLICATION_MODAL);

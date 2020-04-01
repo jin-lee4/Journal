@@ -14,6 +14,7 @@ import static ui.Main.viewEntryScene;
 public class ViewEntriesPanel extends AppPanel {
     ListView<String> entries;
 
+    //returns scene for viewing all journal entries
     @Override
     protected Scene display(Stage window) {
         Pane main = createMainVBox();

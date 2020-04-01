@@ -66,6 +66,7 @@ public class EntriesCollection implements Iterable<JournalEntry> {
         return listOfEntries.toString();
     }
 
+    //EFFECTS: returns number of entries
     public int getNumEntries() {
         return numEntries;
     }

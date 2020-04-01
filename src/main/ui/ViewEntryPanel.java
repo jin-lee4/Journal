@@ -8,6 +8,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.Date;
 import model.JournalEntry;
 
 import static javafx.geometry.Pos.BOTTOM_RIGHT;
@@ -22,6 +23,7 @@ public class ViewEntryPanel extends AppPanel {
         this.entry = entry;
     }
 
+    //returns scene for viewing a selected entry
     @Override
     protected Scene display(Stage window) {
         String time = entry.dateToString(entry.time);

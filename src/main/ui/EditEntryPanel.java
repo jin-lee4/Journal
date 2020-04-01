@@ -17,6 +17,7 @@ public class EditEntryPanel extends AppPanel {
         this.entry = entry;
     }
 
+    //returns scene for editing a selected entry
     @Override
     protected Scene display(Stage window) {
         Pane main = createMainVBox();

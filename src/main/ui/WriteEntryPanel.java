@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 //Application's writing a new journal entry panel UI
 public class WriteEntryPanel extends AppPanel {
 
+    //returns scene for writing a new entry
     @Override
     protected Scene display(Stage window) {
         Pane options = createOptionsHBox();

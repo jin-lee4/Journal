@@ -55,13 +55,16 @@ click "Yes" to ConfirmBox, then "Yes" to save
 ##Phase 4: Task 2
 - Robust method made in EntriesCollection class for viewEntry method
     - Tests in EntriesCollectionsTest
-- Type hierarchy created with -Panel classes in ui class extending AppPanel,
+- Type hierarchy created with -Panel classes in ui package extending AppPanel,
 all override abstract display method within AppPanel.
 
 ##Phase 4: Task 3
 - Main class has poor cohesion as the class is used to run the journal 
 application, but the entire class contains all the UI elements, various scenes,
 and event handlers.
-    - Singleton design pattern used to maintain only one journal is
-    instantiated and used throughout different scenes.
     - Scenes have been refactored into separate classes.
+- dateToString method in JournalEntry class contributes to low cohesion
+    - Method has been refactored into it's own class, Date, and is extended
+    by JournalEntry
+- EntriesCollection class turned into a singleton class as throughout
+the entire application, only one instance of it is used throughout many classes.

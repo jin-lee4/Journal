@@ -17,7 +17,6 @@ public class Main extends Application {
 
     private static Scene currentScene;
     private static Stage window;
-    private static Group root = new Group();
 
     private static EntriesCollection journal;
     private String journalFile = "./data/JOURNAL.txt";
@@ -43,7 +42,6 @@ public class Main extends Application {
         }
         window = primaryStage;
 
-        root = new Group();
         mainScene();
 
         window.show();

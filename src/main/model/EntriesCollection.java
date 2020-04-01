@@ -3,17 +3,22 @@ package model;
 import exceptions.NoEntryFoundException;
 
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.Iterator;
 
 // Represents the total collection of journal entries user has created thus far, organized in chronological order
-public class EntriesCollection {
+public class EntriesCollection implements Iterable<JournalEntry> {
 
+    private static EntriesCollection entriesCollection = new EntriesCollection();
     public ArrayList<JournalEntry> entries;
     public int numEntries;
 
     public EntriesCollection() {
         entries = new ArrayList<>();
         numEntries = 0;
+    }
+
+    public static EntriesCollection getInstance() {
+        return entriesCollection;
     }
 
     //MODIFIES: this
@@ -63,5 +68,10 @@ public class EntriesCollection {
 
     public int getNumEntries() {
         return numEntries;
+    }
+
+    @Override
+    public Iterator<JournalEntry> iterator() {
+        return entries.iterator();
     }
 }

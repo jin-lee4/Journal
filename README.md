@@ -52,7 +52,9 @@ any entries selected on all entries scene (error sound)
 click "Yes" to ConfirmBox, then "Yes" to save
 - State of application automatically loads when program is run
 
-##Phase 4 Task 2
+##Phase 4: Task 2
 - Robust method made in EntriesCollection class for viewEntry method
-- Robust methods used in Reader class (readEntries, readFile)
-- Robust methods used in Writer class (Writer)
+    - Tests in EntriesCollectionsTest
+- Type hierarchy created with -Panel classes in ui class extending AppPanel,
+all override abstract display method within AppPanel.
+

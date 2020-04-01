@@ -1,34 +1,27 @@
 package ui;
 
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class AlertBox {
-    private static Stage window;
+//Application's alert box
+public class AlertBox extends PopUpBox {
+
+    static Stage window;
 
     public static void display(String title, String message) {
-        window = new Stage();
+        window = createWindow(title, message);
 
-        //Blocks other windows from being used until current window is closed
-//        window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle(title);
-        window.setMinWidth(250);
+        Label alertMessage = new Label(message);
+        Button closeButton = new Button("Close");
+        closeButton.setOnAction((e -> window.close()));
 
-        Label label1 = new Label();
-        label1.setText(message);
-//        Button closeButton = new Button("You need to close this first");
-//        closeButton.setOnAction((e -> window.close()));
+        layout = createBoxScene();
+        layout.getChildren().addAll(alertMessage, closeButton);
 
-        VBox layout = new VBox(10);
-        layout.getChildren().add(label1);
-        layout.setAlignment(Pos.CENTER);
+        scene = new Scene(layout);
 
-        Scene scene = new Scene(layout);
         window.setScene(scene);
         window.show();
     }
